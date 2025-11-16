@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
@@ -20,8 +23,16 @@
     "noPropertyAccessFromIndexSignature": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": [
+        "./*"
+      ]
+    },
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
@@ -29,5 +40,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

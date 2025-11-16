@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { parseTip, maskPhone } from '../lib/utils';
 import { addTip } from '../lib/db';
-import { getWalletForPhone } from '../lib/particle';
+import { getWalletForPhone, getWalletAddressForPhone } from '../lib/particle';
 import { submitTip, CONTRACT_ADDRESS } from '../lib/contract';
 
 const app = new Elysia();
@@ -59,16 +59,20 @@ app.post('/webhook', async ({ body }) => {
 
       const predictsEngland = parseTip(text);
 
-      // Generate wallet for phone number
-      const wallet = getWalletForPhone(from);
-      const walletAddress = wallet.address;
+      // Generate deterministic address for this phone number
+      const userAddress = getWalletAddressForPhone(from);
+      console.log(`👤 User address: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`);
+
+      // Get wallet that can submit transactions (admin wallet pays gas)
+      const signerWallet = getWalletForPhone(from);
 
       // Submit tip to contract if address is configured
       let txHash = '';
       if (CONTRACT_ADDRESS) {
         try {
-          txHash = await submitTip(wallet, predictsEngland);
+          txHash = await submitTip(signerWallet, predictsEngland);
           console.log(`✅ Tip submitted on-chain: ${txHash}`);
+          console.log(`💰 Gas paid by: ${signerWallet.address.slice(0, 6)}...${signerWallet.address.slice(-4)}`);
         } catch (e: any) {
           console.error('❌ Contract call failed:', e.message);
           // Continue even if contract call fails
@@ -80,11 +84,11 @@ app.post('/webhook', async ({ body }) => {
         phone: maskPhone(from),
         text,
         predictsEngland,
-        wallet: walletAddress,
+        wallet: userAddress,
         timestamp: Date.now(),
       });
 
-      console.log(`💾 Tip saved: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`);
+      console.log(`💾 Tip saved: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`);
 
       return new Response('OK', { status: 200 });
     }
@@ -95,13 +99,13 @@ app.post('/webhook', async ({ body }) => {
       const text = Body;
       const predictsEngland = parseTip(text);
 
-      const wallet = getWalletForPhone(From);
-      const walletAddress = wallet.address;
+      const userAddress = getWalletAddressForPhone(From);
+      const signerWallet = getWalletForPhone(From);
 
       let txHash = '';
       if (CONTRACT_ADDRESS) {
         try {
-          txHash = await submitTip(wallet, predictsEngland);
+          txHash = await submitTip(signerWallet, predictsEngland);
           console.log(`Tip submitted on-chain: ${txHash}`);
         } catch (e: any) {
           console.error('Contract call failed:', e.message);
@@ -112,11 +116,11 @@ app.post('/webhook', async ({ body }) => {
         phone: maskPhone(From),
         text,
         predictsEngland,
-        wallet: walletAddress,
+        wallet: userAddress,
         timestamp: Date.now(),
       });
 
-      return `Tip logged! Wallet: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}${txHash ? ` | Tx: ${txHash.slice(0, 10)}...` : ''}`;
+      return `Tip logged! Wallet: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}${txHash ? ` | Tx: ${txHash.slice(0, 10)}...` : ''}`;
     }
 
     return new Response('OK', { status: 200 });

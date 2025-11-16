@@ -9,15 +9,14 @@
     "start": "bun --bun next start",
     "lint": "next lint",
     "deploy:contract": "bunx hardhat run scripts/deploy.ts --network opbnb-testnet",
-    "test:setup": "bun run test-setup.ts"
+    "test:setup": "bun run test-setup.ts",
+    "check:balance": "bun run scripts/check-balance.ts"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "@particle-network/auth-core-modal": "^1.10.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@xenova/transformers": "^2.5.5",
     "autoprefixer": "^10.4.16",
-    "better-sqlite3": "^9.2.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "elysia": "^1.1.14",
@@ -37,7 +36,6 @@
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@types/better-sqlite3": "^7.6.8",
     "@types/bun": "latest",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.42",
