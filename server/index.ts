@@ -3,6 +3,7 @@ import { parseTip, maskPhone } from '../lib/utils';
 import { addTip } from '../lib/db';
 import { getWalletForPhone, getWalletAddressForPhone } from '../lib/particle';
 import { submitTip, CONTRACT_ADDRESS } from '../lib/contract';
+import { processAudioMessage } from '../lib/whatsapp';
 
 const app = new Elysia();
 
@@ -48,8 +49,23 @@ app.post('/webhook', async ({ body }) => {
       if (messageType === 'text') {
         text = message.text?.body || '';
       } else if (messageType === 'audio') {
-        // TODO: Download and transcribe audio
-        text = '[Voice message - transcription pending]';
+        // Download and transcribe audio message
+        const audioData = message.audio;
+        if (audioData?.id) {
+          // Try to process audio, but continue if it fails
+          try {
+            text = await processAudioMessage(
+              audioData.id,
+              audioData.url,
+              audioData.voice
+            );
+          } catch (error: any) {
+            console.error('⚠️  Audio processing failed, using placeholder:', error.message);
+            text = '[Voice message - please send text instead]';
+          }
+        } else {
+          text = '[Voice message - no audio ID]';
+        }
       } else {
         console.log(`Unsupported message type: ${messageType}`);
         return new Response('OK', { status: 200 });

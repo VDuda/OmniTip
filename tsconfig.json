@@ -5,7 +5,7 @@
       "DOM"
     ],
     "target": "ESNext",
-    "module": "Preserve",
+    "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "preserve",
     "allowJs": true,
@@ -32,7 +32,9 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": [
     "next-env.d.ts",

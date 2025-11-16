@@ -6,7 +6,7 @@ export default function WhatsAppSim() {
   const [status, setStatus] = useState('');
   const send = async () => {
     setStatus('Sending...');
-    const res = await fetch('http://localhost:3001/webhook', {
+    const res = await fetch('/api/webhook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ From: '+541122233344', Body: text }),

@@ -10,7 +10,8 @@
     "lint": "next lint",
     "deploy:contract": "bunx hardhat run scripts/deploy.ts --network opbnb-testnet",
     "test:setup": "bun run test-setup.ts",
-    "check:balance": "bun run scripts/check-balance.ts"
+    "check:balance": "bun run scripts/check-balance.ts",
+    "tunnel": "./start-tunnel.sh"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
