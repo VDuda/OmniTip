@@ -15,6 +15,7 @@
     "noEmit": true,
     "strict": true,
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
@@ -38,8 +39,13 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    "server/**/*.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
