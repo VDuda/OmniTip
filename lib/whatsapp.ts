@@ -66,7 +66,8 @@ export async function transcribeAudio(audioBuffer: Buffer): Promise<string> {
   if (GROQ_API_KEY) {
     try {
       const formData = new FormData();
-      formData.append('file', new Blob([audioBuffer], { type: 'audio/ogg' }), 'audio.ogg');
+      const blob = new Blob([audioBuffer.buffer as ArrayBuffer], { type: 'audio/ogg' });
+      formData.append('file', blob, 'audio.ogg');
       formData.append('model', 'whisper-large-v3');
       formData.append('language', 'en');
       
@@ -93,7 +94,8 @@ export async function transcribeAudio(audioBuffer: Buffer): Promise<string> {
   if (OPENAI_API_KEY) {
     try {
       const formData = new FormData();
-      formData.append('file', new Blob([audioBuffer], { type: 'audio/ogg' }), 'audio.ogg');
+      const blob = new Blob([audioBuffer.buffer as ArrayBuffer], { type: 'audio/ogg' });
+      formData.append('file', blob, 'audio.ogg');
       formData.append('model', 'whisper-1');
       
       const response = await fetch('https://api.openai.com/v1/audio/transcriptions', {
