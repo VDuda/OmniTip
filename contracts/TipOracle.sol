@@ -39,10 +39,45 @@ contract TipOracle is Ownable {
 
     // Admin only — dashboard calls this
     function adminScoreGoal(string calldata team) external onlyOwner {
-        if (keccak256(bytes(team)) == keccak256("England")) engGoals++;
-        else if (keccak256(bytes(team)) == keccak256("Argentina")) argGoals++;
-        else revert("Invalid team");
-        emit GoalScored(team, keccak256(bytes(team)) == keccak256("England") ? engGoals : argGoals);
+        bool isEngland = keccak256(bytes(team)) == keccak256("England");
+        bool isArgentina = keccak256(bytes(team)) == keccak256("Argentina");
+        
+        require(isEngland || isArgentina, "Invalid team");
+        
+        if (isEngland) {
+            engGoals++;
+            emit GoalScored(team, engGoals);
+            // Auto-payout to England predictors
+            _distributePayouts(true);
+        } else {
+            argGoals++;
+            emit GoalScored(team, argGoals);
+            // Auto-payout to Argentina predictors
+            _distributePayouts(false);
+        }
+    }
+    
+    // Internal function to distribute payouts to correct predictors
+    function _distributePayouts(bool englandScored) internal {
+        uint256 winnersCount = 0;
+        
+        // Count winners
+        for (uint i = 0; i < tips.length; i++) {
+            if (!tips[i].claimed && tips[i].predictsEnglandNext == englandScored) {
+                winnersCount++;
+            }
+        }
+        
+        if (winnersCount == 0) return;
+        
+        // Distribute rewards
+        for (uint i = 0; i < tips.length; i++) {
+            if (!tips[i].claimed && tips[i].predictsEnglandNext == englandScored) {
+                tips[i].claimed = true;
+                rewardToken.transfer(tips[i].wallet, REWARD);
+                emit TipClaimed(tips[i].wallet, REWARD);
+            }
+        }
     }
 
     // Claim after goal — simplified: last goal determines winner

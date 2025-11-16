@@ -8,9 +8,11 @@
     "build": "bun --bun next build",
     "start": "bun --bun next start",
     "lint": "next lint",
-    "deploy:contract": "bunx hardhat run scripts/deploy.ts --network opbnb-testnet",
+    "deploy:contract": "npx hardhat run scripts/deploy-with-payouts.cjs --network opbnb-testnet",
     "test:setup": "bun run test-setup.ts",
     "check:balance": "bun run scripts/check-balance.ts",
+    "check:contract": "bun run scripts/check-contract.ts",
+    "argentina:goal": "bun run scripts/trigger-argentina-goal.ts",
     "tunnel": "./start-tunnel.sh"
   },
   "dependencies": {

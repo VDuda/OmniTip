@@ -26,7 +26,7 @@ export function getContract(signerOrProvider: ethers.Signer | ethers.Provider) {
 
 export async function submitTip(signer: ethers.Signer, predictsEngland: boolean) {
   const contract = getContract(signer);
-  const tx = await contract.tip(predictsEngland);
+  const tx = await (contract as any).tip(predictsEngland);
   await tx.wait();
   return tx.hash;
 }
