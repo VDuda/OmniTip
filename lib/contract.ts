@@ -33,7 +33,7 @@ export async function submitTip(signer: ethers.Signer, predictsEngland: boolean)
 
 export async function adminScoreGoal(signer: ethers.Signer, team: 'England' | 'Argentina') {
   const contract = getContract(signer);
-  const tx = await contract.adminScoreGoal(team);
+  const tx = await (contract as any).adminScoreGoal(team);
   await tx.wait();
   return tx.hash;
 }
@@ -42,8 +42,8 @@ export async function getScores() {
   const provider = getProvider();
   const contract = getContract(provider);
   const [engGoals, argGoals] = await Promise.all([
-    contract.engGoals(),
-    contract.argGoals(),
+    (contract as any).engGoals(),
+    (contract as any).argGoals(),
   ]);
   return {
     england: Number(engGoals),
