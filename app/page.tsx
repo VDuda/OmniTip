@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Play, Pause, RotateCcw, Plus, Minus } from 'lucide-react';
 import { adminScoreGoal } from '@/lib/contract';
@@ -168,9 +169,12 @@ export default function Page() {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-center mb-4">
-            OmniTip: England vs Argentina - Admin Control
-          </h1>
+          <div className="flex flex-col items-center gap-2 mb-4">
+            <Image src="/OmniTip.png" alt="OmniTip Logo" width={250} height={250} />
+            <h1 className="text-3xl font-bold">
+              OmniTip: England vs Argentina
+            </h1>
+          </div>
           
           {/* Score */}
           <div className="text-center text-5xl font-bold mb-4">

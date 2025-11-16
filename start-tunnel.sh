@@ -11,4 +11,4 @@ echo ""
 echo "⏳ Starting ngrok on port 3000..."
 echo ""
 
-./ngrok http 3000
+ngrok http 3000
