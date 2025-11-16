@@ -5,7 +5,22 @@
 ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js)
 ![opBNB](https://img.shields.io/badge/opBNB-FFC107?logo=binance)
 
-**OmniTip** transforms fan predictions into an on-chain oracle. Send voice notes or text via WhatsApp predicting match outcomes, and watch your sentiment get recorded on opBNB blockchain with automatic payouts for correct predictions.
+**OmniTip** transforms fan predictions into an on-chain oracle for live sports betting markets. Send voice notes or text via WhatsApp predicting match outcomes, and watch your sentiment get recorded on opBNB blockchain with automatic payouts for correct predictions.
+
+> **"Voice your gut. Power the odds."**
+
+### 🎯 The Problem
+
+Access to live event sentiment is difficult unless someone literally tells you! This has a massive impact on prediction markets and providing an edge in live betting.
+
+**Market Reality:**
+- **74% of sports betting** now takes place on in-play or "live" markets (IBIA)
+- Live betting value **far outpaces** pre-game betting value
+- Traditional sentiment analysis is too slow for live markets
+- Current solutions rely on delayed social media scraping or expert opinions
+
+**OmniTip Solution:**
+Real-time voice sentiment oracle that captures the "fan pulse" during live matches, providing bookmakers with instant, verifiable crowd sentiment to dynamically adjust odds.
 
 ## 🎯 What It Does
 
