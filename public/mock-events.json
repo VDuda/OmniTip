@@ -1,0 +1,9 @@
+{
+  "match": "England vs Argentina",
+  "timeline": [
+    { "min": 5, "event": "Foul", "team": "Argentina" },
+    { "min": 12, "event": "Shot on target", "team": "England" },
+    { "min": 33, "event": "Yellow card", "team": "England" },
+    { "min": 41, "event": "Corner", "team": "Argentina" }
+  ]
+}
