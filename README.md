@@ -8,6 +8,10 @@
 **OmniTip** transforms fan predictions into an on-chain oracle for live sports betting markets. Send voice notes or text via WhatsApp predicting match outcomes, and watch your sentiment get recorded on opBNB blockchain with automatic payouts for correct predictions.
 
 > **"Voice your gut. Power the odds."**
+>
+> 
+
+[![OmniTip Demo](public/omniTip-thumb.jpeg)](https://cap.link/2b7m5m24cwhk44e)
 
 ### 🎯 The Problem
 
